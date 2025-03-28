@@ -4,6 +4,8 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from scipy.sparse import hstack, csr_matrix
 from sklearn.model_selection import train_test_split
 import joblib
+import streamlit as st
+from sklearn.metrics import accuracy_score
 
 
 df = pd.read_csv("data.csv",on_bad_lines='skip')
@@ -41,3 +43,12 @@ model.fit(x_train, y_train)
 
 joblib.dump(model, 'password_strength_model.pkl')
 joblib.dump(tfidf, 'tfidf_vectorizer.pkl')
+
+
+y_pred = model.predict(x_test)
+accuracy = accuracy_score(y_test, y_pred)
+print("Accuracy : ",accuracy)
+
+
+with open("accuracy.txt", "w") as f:
+    f.write(str(accuracy))

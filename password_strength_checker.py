@@ -20,6 +20,12 @@ def transform_new_data(password):
 
 
 st.title("Password Strength Checker")
+st.write("This app trains a Random Forest model to predict password strength.")
+
+with open("accuracy.txt", "r") as f:
+    accuracy = float(f.read())
+
+st.metric(label="Accuracy :", value=f"{accuracy * 100:.2f}%")
 
 password_input = st.text_input("Enter your password:")
 
